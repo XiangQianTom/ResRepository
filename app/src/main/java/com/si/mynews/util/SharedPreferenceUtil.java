@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.si.mynews.app.App;
+import com.si.mynews.app.Constants;
 
 
 /**
