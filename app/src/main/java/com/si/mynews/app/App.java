@@ -17,7 +17,6 @@ import com.si.mynews.di.module.AppModule;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class App extends MultiDexApplication {
 
     private static App instance;

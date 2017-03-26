@@ -49,6 +49,7 @@ dependencies {
     //di
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
     //leakcanary    blockcanary     bugly
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
