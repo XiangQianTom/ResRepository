@@ -14,7 +14,6 @@ import rx.Observable;
 public interface ZhihuApis {
 
     String HOST = "http://news-at.zhihu.com/api/4/";
-
     /**
      * 启动界面图片
      */
