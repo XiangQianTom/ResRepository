@@ -2,7 +2,7 @@ package com.si.mynews.di.module;
 
 import android.app.Activity;
 
-import com.si.mynews.di.ActivityScope;
+import com.si.mynews.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;

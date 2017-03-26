@@ -1,4 +1,5 @@
-package com.si.mynews.component;/*
+package com.si.mynews.widget;
+/*
  * ==============================================================================
  *
  * 版 权 : ****

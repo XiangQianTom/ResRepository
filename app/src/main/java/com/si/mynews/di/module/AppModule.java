@@ -1,6 +1,8 @@
 package com.si.mynews.di.module;
 
 import com.si.mynews.app.App;
+import com.si.mynews.model.http.RetrofitHelper;
+import com.si.mynews.model.http.api.ZhihuApis;
 
 import javax.inject.Singleton;
 
@@ -22,15 +24,9 @@ public class AppModule {
         return application;
     }
 
-//    @Provides
-//    @Singleton
-//    RetrofitHelper provideRetrofitHelper() {
-//        return new RetrofitHelper();
-//    }
-//
-//    @Provides
-//    @Singleton
-//    RealmHelper provideRealmHelper() {
-//        return new RealmHelper(application);
-//    }
+    @Provides
+    @Singleton
+    RetrofitHelper provideRetrofitHelper(ZhihuApis zhihuApiService) {
+        return new RetrofitHelper(zhihuApiService);
+    }
 }

@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.si.mynews.component.InitializeService;
 import com.si.mynews.di.component.AppComponent;
+import com.si.mynews.di.component.DaggerAppComponent;
 import com.si.mynews.di.module.AppModule;
 
 import java.util.HashSet;
