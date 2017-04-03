@@ -2,7 +2,8 @@ package com.si.mynews.di.component;
 
 import com.si.mynews.app.App;
 import com.si.mynews.di.module.AppModule;
-
+import com.si.mynews.model.db.RealmHelper;
+import com.si.mynews.model.http.RetrofitHelper;
 
 import javax.inject.Singleton;
 
@@ -18,8 +19,8 @@ public interface AppComponent {
 
     App getContext();  // 提供App的Context
 
-//    RetrofitHelper retrofitHelper();  //提供http的帮助类
-//
-//    RealmHelper realmHelper();    //提供数据库帮助类
+    RetrofitHelper retrofitHelper();  //提供http的帮助类
+
+    RealmHelper realmHelper();    //提供数据库帮助类
 
 }
