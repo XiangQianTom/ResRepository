@@ -17,8 +17,8 @@
         android:supportsRtl="true"
         android:name="com.si.mynews.app.App"
         android:theme="@style/AppTheme">
-        //主类"
-        <activity android:name="com.si.mynews.ui.main.activity.WelcomeActivity"
+        //主类
+        <activity android:name="com.si.mynews.ui.WelcomeActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.si.mynews.ui.main.activity.MainActivity"
+        <activity android:name="com.si.mynews.ui.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/MainTheme"
             android:screenOrientation="portrait">

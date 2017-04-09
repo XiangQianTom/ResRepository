@@ -5,8 +5,8 @@ import android.app.Activity;
 
 import com.si.mynews.di.module.ActivityModule;
 import com.si.mynews.di.scope.ActivityScope;
-import com.si.mynews.ui.main.activity.MainActivity;
-import com.si.mynews.ui.main.activity.WelcomeActivity;
+import com.si.mynews.ui.MainActivity;
+import com.si.mynews.ui.WelcomeActivity;
 
 import dagger.Component;
 

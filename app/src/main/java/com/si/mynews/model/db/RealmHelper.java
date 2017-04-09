@@ -2,6 +2,8 @@ package com.si.mynews.model.db;
 
 import android.content.Context;
 
+import com.si.mynews.model.bean.GoldManagerBean;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -20,5 +22,28 @@ public class RealmHelper {
                 .deleteRealmIfMigrationNeeded()
                 .name(DB_NAME)
                 .build());
+    }
+    /**
+     * 更新 新闻首页管理列表
+     * @param bean
+     */
+    public void updateGoldManagerList(GoldManagerBean bean) {
+        GoldManagerBean data = mRealm.where(GoldManagerBean.class).findFirst();
+        mRealm.beginTransaction();
+        if (data != null) {
+            data.deleteFromRealm();
+        }
+        mRealm.copyToRealm(bean);
+        mRealm.commitTransaction();
+    }
+    /**
+     * 获取 新闻首页管理列表
+     * @return
+     */
+    public GoldManagerBean getGoldManagerList() {
+        GoldManagerBean bean = mRealm.where(GoldManagerBean.class).findFirst();
+        if (bean == null)
+            return null;
+        return mRealm.copyFromRealm(bean);
     }
 }

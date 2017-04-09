@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.si.mynews.di.module.FragmentModule;
 import com.si.mynews.di.scope.FragmentScope;
+import com.si.mynews.fragment.news.NewsPagerFragment;
+import com.si.mynews.fragment.news.NewsMainFragment;
 
 import dagger.Component;
 
@@ -17,4 +19,7 @@ public interface FragmentComponent {
 
     Activity getActivity();
 
+    void inject(NewsMainFragment newsMainFragment);
+
+    void inject(NewsPagerFragment newsPagerFragment);
 }

@@ -1,4 +1,4 @@
-package com.si.mynews.ui.main.activity;
+package com.si.mynews.ui;
 
 import android.content.Intent;
 import android.widget.ImageView;

@@ -3,7 +3,7 @@ package com.si.mynews.util;
 
 import com.si.mynews.model.http.exception.ApiException;
 import com.si.mynews.model.http.response.GankHttpResponse;
-import com.si.mynews.model.http.response.GoldHttpResponse;
+import com.si.mynews.model.http.response.NewsHttpResponse;
 import com.si.mynews.model.http.response.MyHttpResponse;
 import com.si.mynews.model.http.response.WXHttpResponse;
 
@@ -107,15 +107,15 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<GoldHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
-        return new Observable.Transformer<GoldHttpResponse<T>, T>() {
+    public static <T> Observable.Transformer<NewsHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
+        return new Observable.Transformer<NewsHttpResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<GoldHttpResponse<T>> httpResponseObservable) {
-                return httpResponseObservable.flatMap(new Func1<GoldHttpResponse<T>, Observable<T>>() {
+            public Observable<T> call(Observable<NewsHttpResponse<T>> httpResponseObservable) {
+                return httpResponseObservable.flatMap(new Func1<NewsHttpResponse<T>, Observable<T>>() {
                     @Override
-                    public Observable<T> call(GoldHttpResponse<T> tGoldHttpResponse) {
-                        if(tGoldHttpResponse.getResults() != null) {
-                            return createData(tGoldHttpResponse.getResults());
+                    public Observable<T> call(NewsHttpResponse<T> tNewsHttpResponse) {
+                        if(tNewsHttpResponse.getResults() != null) {
+                            return createData(tNewsHttpResponse.getResults());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
                         }
