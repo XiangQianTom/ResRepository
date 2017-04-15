@@ -43,6 +43,7 @@ public class RetrofitHelper {
 
     private void init() {
         initOkHttp();
+        zhihuApiService = getApiService(ZhihuApis.HOST, ZhihuApis.class);
         newsApiService = getApiService(NewsApis.HOST, NewsApis.class);
     }
 

@@ -2,7 +2,6 @@ package com.si.mynews.base;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -35,7 +34,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
     private Unbinder mUnBinder;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         mUnBinder = ButterKnife.bind(this);
@@ -49,11 +48,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
             mPresenter.attachView(this);
         App.getInstance().addActivity(this);
         initEventAndData();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     protected void setToolBar(Toolbar toolbar, String title) {

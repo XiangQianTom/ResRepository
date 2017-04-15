@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.si.mynews.app.App;
+import com.si.mynews.di.component.DaggerFragmentComponent;
 import com.si.mynews.di.component.FragmentComponent;
 import com.si.mynews.di.module.FragmentModule;
 import com.si.mynews.presenter.contract.BaseView;
