@@ -1,7 +1,6 @@
 package com.si.mynews.component;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -15,9 +14,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
 
-import static com.si.mynews.util.LogUtil.isDebug;
-import static com.si.mynews.util.SystemUtil.getProcessName;
-
 
 public class InitializeService extends IntentService {
 
@@ -27,10 +23,10 @@ public class InitializeService extends IntentService {
         super("InitializeService");
     }
 
-    public static void start(Context context) {
-        Intent intent = new Intent(context, InitializeService.class);
+    public static void start() {
+        Intent intent = new Intent(App.mContext, InitializeService.class);
         intent.setAction(ACTION_INIT);
-        context.startService(intent);
+        App.mContext.startService(intent);
     }
 
     @Override
@@ -98,15 +94,6 @@ public class InitializeService extends IntentService {
     }
 
     private void initBugly() {
-        Context context = getApplicationContext();
-        // 获取当前包名
-        String packageName = context.getPackageName();
-        // 获取当前进程名
-        String processName = getProcessName(android.os.Process.myPid());
-        // 设置是否为上报进程
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
-        strategy.setUploadProcess(processName == null || processName.equals(packageName));
-        // 初始化Bugly
-        CrashReport.initCrashReport(context, Constants.BUGLY_ID, isDebug, strategy);
+        CrashReport.initCrashReport(App.mContext, Constants.BUGLY_ID, true);
     }
 }

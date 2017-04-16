@@ -27,6 +27,7 @@ public class App extends MultiDexApplication {
     public static int SCREEN_HEIGHT = -1;
     public static float DIMEN_RATE = -1.0F;
     public static int DIMEN_DPI = -1;
+    public static Context mContext;
 
     public static synchronized App getInstance() {
         return instance;
@@ -41,12 +42,13 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        mContext = getApplicationContext();
 
         //初始化屏幕宽高
         getScreenSize();
 
         //在子线程中初始化
-        InitializeService.start(this);
+        InitializeService.start();
     }
 
     public void addActivity(Activity act) {

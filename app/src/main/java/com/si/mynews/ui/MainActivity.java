@@ -33,6 +33,7 @@ import si.mynews.R;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View{
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.toolbar)
@@ -64,6 +65,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int b=1/0;
         if (savedInstanceState == null) {
             SharedPreferenceUtil.setNightModeState(false);
         } else {

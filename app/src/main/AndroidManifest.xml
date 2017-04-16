@@ -32,7 +32,9 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme"></activity>
-        <activity android:name="com.si.mynews.ui.TestActivity"></activity>
+        <activity android:name="com.si.mynews.ui.TestActivity" />
+
+        <service android:name="com.si.mynews.component.InitializeService" />
     </application>
 
 </manifest>

@@ -16,14 +16,15 @@
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.Toolbar
+
+            <FrameLayout
+                android:id="@+id/toolbar_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:titleTextColor="@android:color/white"
-                android:background="?attr/colorPrimaryDark"
-                android:minHeight="?attr/actionBarSize"
-                android:id="@+id/toolbar"/>
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/view_toolbar"
+                    android:id="@+id/toolbar"/>
+            </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/fl_main_content"
@@ -39,8 +40,8 @@
             android:background="@color/drawer_item_bg_n"
             app:headerLayout="@layout/view_drawer_header"
             app:menu="@menu/drawer_menu"
-            app:itemBackground="@drawable/drawer_item_bg"/>
+            app:itemBackground="@drawable/drawer_item_bg"
+            >
+        </android.support.design.widget.NavigationView>
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>
-
-
