@@ -13,7 +13,7 @@ public class NewsManagerActivity extends AppCompatActivity {
 //    @BindView(R.id.rv_gold_manager_list)
 //    RecyclerView rvGoldManagerList;
 //
-//    RealmList<GoldManagerItemBean> mList;
+//    RealmList<NewsManagerItemBean> mList;
 //    GoldManagerAdapter mAdapter;
 //    DefaultItemTouchHelpCallback mCallback;
 //
@@ -25,7 +25,7 @@ public class NewsManagerActivity extends AppCompatActivity {
 //    @Override
 //    protected void initEventAndData() {
 //        setToolBar(toolBar, "首页特别展示");
-//        mList = ((GoldManagerBean) getIntent().getParcelableExtra(Constants.IT_GOLD_MANAGER)).getManagerList();
+//        mList = ((NewsManagerBean) getIntent().getParcelableExtra(Constants.IT_GOLD_MANAGER)).getManagerList();
 //        mAdapter = new GoldManagerAdapter(mContext, mList);
 //        rvGoldManagerList.setLayoutManager(new LinearLayoutManager(mContext));
 //        rvGoldManagerList.setAdapter(mAdapter);
@@ -53,6 +53,6 @@ public class NewsManagerActivity extends AppCompatActivity {
 //    @Override
 //    protected void onDestroy() {
 //        super.onDestroy();
-//        RxBus.getDefault().post(new GoldManagerBean(mList));
+//        RxBus.getDefault().post(new NewsManagerBean(mList));
 //    }
 }

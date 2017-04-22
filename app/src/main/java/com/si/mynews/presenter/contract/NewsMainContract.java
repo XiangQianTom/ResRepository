@@ -2,8 +2,8 @@ package com.si.mynews.presenter.contract;
 
 
 import com.si.mynews.base.BasePresenter;
-import com.si.mynews.model.bean.GoldManagerBean;
-import com.si.mynews.model.bean.GoldManagerItemBean;
+import com.si.mynews.model.bean.NewsManagerBean;
+import com.si.mynews.model.bean.NewsManagerItemBean;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ public interface NewsMainContract {
 
     interface View extends BaseView {
 
-        void updateTab(List<GoldManagerItemBean> mList);
+        void updateTab(List<NewsManagerItemBean> mList);
 
-        void jumpToManager(GoldManagerBean mBean);
+        void jumpToManager(NewsManagerBean mBean);
     }
 
     interface Presenter extends BasePresenter<View> {

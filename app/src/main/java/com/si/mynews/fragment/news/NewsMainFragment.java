@@ -9,8 +9,8 @@ import android.view.View;
 import com.si.mynews.adapter.NewsPagerAdapter;
 import com.si.mynews.app.Constants;
 import com.si.mynews.base.BaseFragment;
-import com.si.mynews.model.bean.GoldManagerBean;
-import com.si.mynews.model.bean.GoldManagerItemBean;
+import com.si.mynews.model.bean.NewsManagerBean;
+import com.si.mynews.model.bean.NewsManagerItemBean;
 import com.si.mynews.presenter.NewsMainPresenter;
 import com.si.mynews.presenter.contract.NewsMainContract;
 import com.si.mynews.ui.NewsManagerActivity;
@@ -54,10 +54,10 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
     }
 
     @Override
-    public void updateTab(List<GoldManagerItemBean> mList) {
+    public void updateTab(List<NewsManagerItemBean> mList) {
         fragments.clear();
         mTabLayout.removeAllTabs();
-        for (GoldManagerItemBean item : mList) {
+        for (NewsManagerItemBean item : mList) {
             if (item.getIsSelect()) {
                 NewsPagerFragment fragment = new NewsPagerFragment();
                 Bundle bundle = new Bundle();
@@ -70,7 +70,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
         }
         NewsPagerAdapter mAdapter = new NewsPagerAdapter(getChildFragmentManager(), fragments);
         mViewPager.setAdapter(mAdapter);
-        for (GoldManagerItemBean item : mList) {
+        for (NewsManagerItemBean item : mList) {
             if (item.getIsSelect()) {
                 mTabLayout.getTabAt(currentIndex++).setText(typeStr[item.getIndex()]);
             }
@@ -79,7 +79,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
     }
 
     @Override
-    public void jumpToManager(GoldManagerBean mBean) {
+    public void jumpToManager(NewsManagerBean mBean) {
         Intent intent = new Intent(getActivity(), NewsManagerActivity.class);
         intent.putExtra(Constants.IT_GOLD_MANAGER, mBean);
         mContext.startActivity(intent);
@@ -90,7 +90,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
         SnackbarUtil.showShort(mTabLayout, msg);
     }
 
-    @OnClick(R.id.iv_gold_menu)
+    @OnClick(R.id.iv_news_menu)
     public void onClick(View view) {
         mPresenter.setManagerList();
     }

@@ -9,17 +9,17 @@ import io.realm.RealmObject;
  * Created by si on 16/12/1.
  */
 
-public class GoldManagerItemBean extends RealmObject implements Parcelable {
+public class NewsManagerItemBean extends RealmObject implements Parcelable {
 
     private int index;
 
     private boolean isSelect;
 
-    public GoldManagerItemBean () {
+    public NewsManagerItemBean() {
 
     }
 
-    public GoldManagerItemBean (int index, boolean isSelect) {
+    public NewsManagerItemBean(int index, boolean isSelect) {
         this.index = index;
         this.isSelect = isSelect;
     }
@@ -51,20 +51,20 @@ public class GoldManagerItemBean extends RealmObject implements Parcelable {
         dest.writeByte(this.isSelect ? (byte) 1 : (byte) 0);
     }
 
-    protected GoldManagerItemBean(Parcel in) {
+    protected NewsManagerItemBean(Parcel in) {
         this.index = in.readInt();
         this.isSelect = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<GoldManagerItemBean> CREATOR = new Parcelable.Creator<GoldManagerItemBean>() {
+    public static final Parcelable.Creator<NewsManagerItemBean> CREATOR = new Parcelable.Creator<NewsManagerItemBean>() {
         @Override
-        public GoldManagerItemBean createFromParcel(Parcel source) {
-            return new GoldManagerItemBean(source);
+        public NewsManagerItemBean createFromParcel(Parcel source) {
+            return new NewsManagerItemBean(source);
         }
 
         @Override
-        public GoldManagerItemBean[] newArray(int size) {
-            return new GoldManagerItemBean[size];
+        public NewsManagerItemBean[] newArray(int size) {
+            return new NewsManagerItemBean[size];
         }
     };
 }

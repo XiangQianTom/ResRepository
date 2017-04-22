@@ -2,8 +2,8 @@ package com.si.mynews.presenter;
 
 import com.si.mynews.base.RxPresenter;
 import com.si.mynews.component.RxBus;
-import com.si.mynews.model.bean.GoldManagerBean;
-import com.si.mynews.model.bean.GoldManagerItemBean;
+import com.si.mynews.model.bean.NewsManagerBean;
+import com.si.mynews.model.bean.NewsManagerItemBean;
 import com.si.mynews.model.db.RealmHelper;
 import com.si.mynews.presenter.contract.NewsMainContract;
 import com.si.mynews.util.RxUtil;
@@ -22,7 +22,7 @@ import rx.functions.Action1;
 public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implements NewsMainContract.Presenter{
 
     private RealmHelper mRealmHelper;
-    private RealmList<GoldManagerItemBean> mList;
+    private RealmList<NewsManagerItemBean> mList;
 
     @Inject
     public NewsMainPresenter(RealmHelper mRealHelper) {
@@ -31,12 +31,12 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
     }
 
     private void registerEvent() {
-        Subscription rxSubscription = RxBus.getDefault().toObservable(GoldManagerBean.class)
-                .compose(RxUtil.<GoldManagerBean>rxSchedulerHelper())
-                .subscribe(new Action1<GoldManagerBean>() {
+        Subscription rxSubscription = RxBus.getDefault().toObservable(NewsManagerBean.class)
+                .compose(RxUtil.<NewsManagerBean>rxSchedulerHelper())
+                .subscribe(new Action1<NewsManagerBean>() {
                     @Override
-                    public void call(GoldManagerBean goldManagerBean) {
-                        mRealmHelper.updateGoldManagerList(goldManagerBean);
+                    public void call(NewsManagerBean goldManagerBean) {
+                        mRealmHelper.updateNewsManagerList(goldManagerBean);
                         mView.updateTab(goldManagerBean.getManagerList());
                     }
                 });
@@ -48,12 +48,12 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
         if (SharedPreferenceUtil.getManagerPoint()) {
             //第一次使用，生成默认ManagerList
             initList();
-            mRealmHelper.updateGoldManagerList(new GoldManagerBean(mList));
+            mRealmHelper.updateNewsManagerList(new NewsManagerBean(mList));
             mView.updateTab(mList);
         } else {
             if (mRealmHelper.getGoldManagerList() == null) {
                 initList();
-                mRealmHelper.updateGoldManagerList(new GoldManagerBean(mList));
+                mRealmHelper.updateNewsManagerList(new NewsManagerBean(mList));
             } else {
                 mList = mRealmHelper.getGoldManagerList().getManagerList();
             }
@@ -68,13 +68,13 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
 
     private void initList() {
         mList = new RealmList<>();
-        mList.add(new GoldManagerItemBean(0, true));
-        mList.add(new GoldManagerItemBean(1, true));
-        mList.add(new GoldManagerItemBean(2, true));
-        mList.add(new GoldManagerItemBean(3, true));
-        mList.add(new GoldManagerItemBean(4, false));
-        mList.add(new GoldManagerItemBean(5, false));
-        mList.add(new GoldManagerItemBean(6, false));
-        mList.add(new GoldManagerItemBean(7, false));
+        mList.add(new NewsManagerItemBean(0, true));
+        mList.add(new NewsManagerItemBean(1, true));
+        mList.add(new NewsManagerItemBean(2, true));
+        mList.add(new NewsManagerItemBean(3, true));
+        mList.add(new NewsManagerItemBean(4, false));
+        mList.add(new NewsManagerItemBean(5, false));
+        mList.add(new NewsManagerItemBean(6, false));
+        mList.add(new NewsManagerItemBean(7, false));
     }
 }

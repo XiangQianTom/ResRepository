@@ -19,7 +19,7 @@
             app:tabTextColor="@android:color/white"
             />
         <ImageView
-            android:id="@+id/iv_gold_menu"
+            android:id="@+id/iv_news_menu"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
