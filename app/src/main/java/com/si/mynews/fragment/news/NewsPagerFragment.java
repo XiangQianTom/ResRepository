@@ -14,9 +14,6 @@ import si.mynews.R;
  */
 
 public class NewsPagerFragment extends BaseFragment<NewsPresenter> implements NewsContract.View {
-
-
-
     private boolean isLoadingMore = false;
     private String mType;
 

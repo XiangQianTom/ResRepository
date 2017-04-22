@@ -23,11 +23,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import si.mynews.R;
 
+import static android.support.design.widget.TabLayout.MODE_SCROLLABLE;
+
 public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements NewsMainContract.View {
 
-    @BindView(R.id.tab_gold_main)
+    @BindView(R.id.tab_news_main)
     TabLayout mTabLayout;
-    @BindView(R.id.vp_gold_main)
+    @BindView(R.id.vp_news_main)
     ViewPager mViewPager;
 
     public static String[] typeStr = {"Android", "iOS", "前端", "后端", "设计", "产品", "阅读", "工具资源"};
@@ -48,7 +50,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
 
     @Override
     protected void initEventAndData() {
-        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout.setTabMode(MODE_SCROLLABLE);
         mTabLayout.setupWithViewPager(mViewPager);
         mPresenter.initManagerList();
     }
@@ -61,8 +63,8 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
             if (item.getIsSelect()) {
                 NewsPagerFragment fragment = new NewsPagerFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.IT_GOLD_TYPE, type[item.getIndex()]);
-                bundle.putString(Constants.IT_GOLD_TYPE_STR, typeStr[item.getIndex()]);
+                bundle.putString(Constants.IT_NEWS_TYPE, type[item.getIndex()]);
+                bundle.putString(Constants.IT_NEWS_TYPE_STR, typeStr[item.getIndex()]);
                 mTabLayout.addTab(mTabLayout.newTab().setText(typeStr[item.getIndex()]));
                 fragment.setArguments(bundle);
                 fragments.add(fragment);
@@ -81,7 +83,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
     @Override
     public void jumpToManager(NewsManagerBean mBean) {
         Intent intent = new Intent(getActivity(), NewsManagerActivity.class);
-        intent.putExtra(Constants.IT_GOLD_MANAGER, mBean);
+        intent.putExtra(Constants.IT_NEWS_MANAGER, mBean);
         mContext.startActivity(intent);
     }
 

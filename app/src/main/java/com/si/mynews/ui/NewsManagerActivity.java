@@ -25,7 +25,7 @@ public class NewsManagerActivity extends AppCompatActivity {
 //    @Override
 //    protected void initEventAndData() {
 //        setToolBar(toolBar, "首页特别展示");
-//        mList = ((NewsManagerBean) getIntent().getParcelableExtra(Constants.IT_GOLD_MANAGER)).getManagerList();
+//        mList = ((NewsManagerBean) getIntent().getParcelableExtra(Constants.IT_NEWS_MANAGER)).getManagerList();
 //        mAdapter = new GoldManagerAdapter(mContext, mList);
 //        rvGoldManagerList.setLayoutManager(new LinearLayoutManager(mContext));
 //        rvGoldManagerList.setAdapter(mAdapter);

@@ -65,7 +65,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int b=1/0;
         if (savedInstanceState == null) {
             SharedPreferenceUtil.setNightModeState(false);
         } else {
