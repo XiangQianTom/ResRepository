@@ -1,4 +1,4 @@
-package com.si.mynews.fragment.news;
+package com.si.mynews.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View;
 import com.si.mynews.adapter.NewsPagerAdapter;
 import com.si.mynews.app.Constants;
 import com.si.mynews.base.BaseFragment;
+
 import com.si.mynews.model.bean.NewsManagerBean;
 import com.si.mynews.model.bean.NewsManagerItemBean;
 import com.si.mynews.presenter.NewsMainPresenter;
@@ -23,7 +24,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import si.mynews.R;
 
-import static android.support.design.widget.TabLayout.MODE_SCROLLABLE;
+
 
 public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements NewsMainContract.View {
 
@@ -50,7 +51,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
 
     @Override
     protected void initEventAndData() {
-        mTabLayout.setTabMode(MODE_SCROLLABLE);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setupWithViewPager(mViewPager);
         mPresenter.initManagerList();
     }

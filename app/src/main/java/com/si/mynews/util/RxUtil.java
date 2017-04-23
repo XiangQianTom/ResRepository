@@ -107,7 +107,7 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<NewsHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
+    public static <T> Observable.Transformer<NewsHttpResponse<T>, T> handleNewsResult() {   //compose判断结果
         return new Observable.Transformer<NewsHttpResponse<T>, T>() {
             @Override
             public Observable<T> call(Observable<NewsHttpResponse<T>> httpResponseObservable) {

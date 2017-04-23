@@ -13,15 +13,15 @@ public interface NewsContract {
 
     interface View extends BaseView {
 
-        void showContent(List<NewsListBean> goldListBean);
+        void showContent(List<NewsListBean> newsListBean);
 
-        void showMoreContent(List<NewsListBean> goldMoreListBean, int start, int end);
+        void showMoreContent(List<NewsListBean> newsMoreListBean, int start, int end);
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void getGoldData(String type);
+        void getNewsData(String type);
 
-        void getMoreGoldData();
+        void getMoreNewsData();
     }
 }

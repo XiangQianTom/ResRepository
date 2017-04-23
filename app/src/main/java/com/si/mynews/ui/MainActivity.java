@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.si.mynews.app.App;
 import com.si.mynews.app.Constants;
 import com.si.mynews.base.BaseActivity;
-import com.si.mynews.fragment.news.NewsMainFragment;
+import com.si.mynews.fragment.NewsMainFragment;
 import com.si.mynews.presenter.MainPresenter;
 import com.si.mynews.presenter.contract.MainContract;
 import com.si.mynews.util.SharedPreferenceUtil;

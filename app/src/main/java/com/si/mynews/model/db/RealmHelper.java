@@ -40,7 +40,7 @@ public class RealmHelper {
      * 获取 新闻首页管理列表
      * @return
      */
-    public NewsManagerBean getGoldManagerList() {
+    public NewsManagerBean getNewsManagerList() {
         NewsManagerBean bean = mRealm.where(NewsManagerBean.class).findFirst();
         if (bean == null)
             return null;

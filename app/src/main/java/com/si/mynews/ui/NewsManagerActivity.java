@@ -10,25 +10,25 @@ public class NewsManagerActivity extends AppCompatActivity {
 
 //    @BindView(R.id.tool_bar)
 //    Toolbar toolBar;
-//    @BindView(R.id.rv_gold_manager_list)
-//    RecyclerView rvGoldManagerList;
+//    @BindView(R.id.rv_news_manager_list)
+//    RecyclerView rvNewsManagerList;
 //
 //    RealmList<NewsManagerItemBean> mList;
-//    GoldManagerAdapter mAdapter;
+//    NewsManagerAdapter mAdapter;
 //    DefaultItemTouchHelpCallback mCallback;
 //
 //    @Override
 //    protected int getLayout() {
-//        return R.layout.activity_gold_manager;
+//        return R.layout.activity_news_manager;
 //    }
 //
 //    @Override
 //    protected void initEventAndData() {
 //        setToolBar(toolBar, "首页特别展示");
 //        mList = ((NewsManagerBean) getIntent().getParcelableExtra(Constants.IT_NEWS_MANAGER)).getManagerList();
-//        mAdapter = new GoldManagerAdapter(mContext, mList);
-//        rvGoldManagerList.setLayoutManager(new LinearLayoutManager(mContext));
-//        rvGoldManagerList.setAdapter(mAdapter);
+//        mAdapter = new NewsManagerAdapter(mContext, mList);
+//        rvNewsManagerList.setLayoutManager(new LinearLayoutManager(mContext));
+//        rvNewsManagerList.setAdapter(mAdapter);
 //        mCallback = new DefaultItemTouchHelpCallback(new DefaultItemTouchHelpCallback.OnItemTouchCallbackListener() {
 //            @Override
 //            public void onSwiped(int adapterPosition) {
@@ -47,7 +47,7 @@ public class NewsManagerActivity extends AppCompatActivity {
 //        mCallback.setDragEnable(true);
 //        mCallback.setSwipeEnable(false);
 //        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(mCallback);
-//        itemTouchHelper.attachToRecyclerView(rvGoldManagerList);
+//        itemTouchHelper.attachToRecyclerView(rvNewsManagerList);
 //    }
 //
 //    @Override

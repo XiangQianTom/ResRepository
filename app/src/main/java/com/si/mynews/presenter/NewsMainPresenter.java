@@ -35,9 +35,9 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
                 .compose(RxUtil.<NewsManagerBean>rxSchedulerHelper())
                 .subscribe(new Action1<NewsManagerBean>() {
                     @Override
-                    public void call(NewsManagerBean goldManagerBean) {
-                        mRealmHelper.updateNewsManagerList(goldManagerBean);
-                        mView.updateTab(goldManagerBean.getManagerList());
+                    public void call(NewsManagerBean newsManagerBean) {
+                        mRealmHelper.updateNewsManagerList(newsManagerBean);
+                        mView.updateTab(newsManagerBean.getManagerList());
                     }
                 });
         addSubscrebe(rxSubscription);
@@ -51,11 +51,11 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
             mRealmHelper.updateNewsManagerList(new NewsManagerBean(mList));
             mView.updateTab(mList);
         } else {
-            if (mRealmHelper.getGoldManagerList() == null) {
+            if (mRealmHelper.getNewsManagerList() == null) {
                 initList();
                 mRealmHelper.updateNewsManagerList(new NewsManagerBean(mList));
             } else {
-                mList = mRealmHelper.getGoldManagerList().getManagerList();
+                mList = mRealmHelper.getNewsManagerList().getManagerList();
             }
             mView.updateTab(mList);
         }
@@ -63,7 +63,7 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
 
     @Override
     public void setManagerList() {
-        mView.jumpToManager(mRealmHelper.getGoldManagerList());
+        mView.jumpToManager(mRealmHelper.getNewsManagerList());
     }
 
     private void initList() {

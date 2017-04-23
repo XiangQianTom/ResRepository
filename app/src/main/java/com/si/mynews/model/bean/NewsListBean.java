@@ -18,11 +18,11 @@ public class NewsListBean {
 
     private String url;
 
-    private GoldListUserBean user;
+    private NewsListUserBean user;
 
-    private GoldListScreenshotBean screenshot;
+    private NewsListScreenshotBean screenshot;
 
-    public static class GoldListUserBean {
+    public static class NewsListUserBean {
         private String username;
 
         public String getUsername() {
@@ -34,7 +34,7 @@ public class NewsListBean {
         }
     }
 
-    public static class GoldListScreenshotBean {
+    public static class NewsListScreenshotBean {
         private String url;
 
         public String getUrl() {
@@ -54,7 +54,7 @@ public class NewsListBean {
         this.objectId = objectId;
     }
 
-    public GoldListScreenshotBean getScreenshot() {
+    public NewsListScreenshotBean getScreenshot() {
         return screenshot;
     }
 
@@ -62,7 +62,7 @@ public class NewsListBean {
         this.collectionCount = collectionCount;
     }
 
-    public GoldListUserBean getUser() {
+    public NewsListUserBean getUser() {
         return user;
     }
 
@@ -82,7 +82,7 @@ public class NewsListBean {
         return commentsCount;
     }
 
-    public void setScreenshot(GoldListScreenshotBean screenshot) {
+    public void setScreenshot(NewsListScreenshotBean screenshot) {
         this.screenshot = screenshot;
     }
 
@@ -106,7 +106,7 @@ public class NewsListBean {
         return url;
     }
 
-    public void setUser(GoldListUserBean user) {
+    public void setUser(NewsListUserBean user) {
         this.user = user;
     }
 }
