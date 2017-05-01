@@ -1,6 +1,8 @@
 package com.si.mynews.model.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /*
@@ -47,7 +49,7 @@ public class NewsTopListBean {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Parcelable{
         /**
          * author_name : 小晖世界观
          * category : 头条
@@ -69,6 +71,30 @@ public class NewsTopListBean {
         private String title;
         private String uniquekey;
         private String url;
+
+        protected DataBean(Parcel in) {
+            author_name = in.readString();
+            category = in.readString();
+            date = in.readString();
+            thumbnail_pic_s = in.readString();
+            thumbnail_pic_s02 = in.readString();
+            thumbnail_pic_s03 = in.readString();
+            title = in.readString();
+            uniquekey = in.readString();
+            url = in.readString();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
 
         public String getAuthor_name() {
             return author_name;
@@ -140,6 +166,24 @@ public class NewsTopListBean {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(author_name);
+            dest.writeString(category);
+            dest.writeString(date);
+            dest.writeString(thumbnail_pic_s);
+            dest.writeString(thumbnail_pic_s02);
+            dest.writeString(thumbnail_pic_s03);
+            dest.writeString(title);
+            dest.writeString(uniquekey);
+            dest.writeString(url);
         }
     }
 }

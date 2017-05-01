@@ -1,6 +1,8 @@
 package com.si.mynews.model.bean;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -43,7 +45,7 @@ public class NewsListBean {
         this.list = list;
     }
 
-    public static class ListBean implements Serializable {
+    public static class ListBean implements Parcelable {
         /**
          * category : sports
          * content : 北京
@@ -63,6 +65,29 @@ public class NewsListBean {
         private String title;
         private String url;
         private String weburl;
+
+        protected ListBean(Parcel in) {
+            category = in.readString();
+            content = in.readString();
+            pic = in.readString();
+            src = in.readString();
+            time = in.readString();
+            title = in.readString();
+            url = in.readString();
+            weburl = in.readString();
+        }
+
+        public static final Creator<ListBean> CREATOR = new Creator<ListBean>() {
+            @Override
+            public ListBean createFromParcel(Parcel in) {
+                return new ListBean(in);
+            }
+
+            @Override
+            public ListBean[] newArray(int size) {
+                return new ListBean[size];
+            }
+        };
 
         public String getCategory() {
             return category;
@@ -126,6 +151,23 @@ public class NewsListBean {
 
         public void setWeburl(String weburl) {
             this.weburl = weburl;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(category);
+            dest.writeString(content);
+            dest.writeString(pic);
+            dest.writeString(src);
+            dest.writeString(time);
+            dest.writeString(title);
+            dest.writeString(url);
+            dest.writeString(weburl);
         }
     }
 }
