@@ -49,7 +49,7 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
 
     @Override
     public void setManagerList() {
-        mView.jumpToManager(mRealmHelper.getGoldManagerList());
+
     }
 
     private void initList() {

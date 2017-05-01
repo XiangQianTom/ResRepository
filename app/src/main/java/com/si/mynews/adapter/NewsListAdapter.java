@@ -1,16 +1,21 @@
 package com.si.mynews.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v4.view.ViewPager;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.si.mynews.app.Constants;
 import com.si.mynews.component.ImageLoader;
 import com.si.mynews.model.bean.NewsListBean;
-import com.si.mynews.util.DateUtil;
+import com.si.mynews.model.bean.NewsTopListBean;
+import com.si.mynews.widget.NewsDiffCallback;
 import com.si.mynews.widget.SquareImageView;
 
 import java.util.List;
@@ -20,101 +25,87 @@ import butterknife.ButterKnife;
 import si.mynews.R;
 
 /**
- * Created by si on 16/11/27.
+ * Created by si on 16/8/13.
+ * <p>
+ * 一开始打算用ScrollView嵌套RecyclerView来实现
+ * 但是RecyclerView23.1.1之后的版本嵌套会显示不全
+ * Google也不推荐ScrollView嵌套RecyclerView
+ * 还是采取getItemViewType来实现
  */
 
 public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<NewsListBean> mList;
-    private Context mContext;
+    private List<NewsListBean.ListBean> mList;
+    private List<NewsTopListBean.DataBean> mTopList;
     private LayoutInflater inflater;
+    private Context mContext;
+    private TopPagerAdapter mAdapter;
+    private ViewPager topViewPager;
+    private OnItemClickListener onItemClickListener;
 
-    private String mType;
-    private boolean mHotFlag = true;
-    private OnHotCloseListener onHotCloseListener;
+    private int mPageType;
 
     public enum ITEM_TYPE {
-        ITEM_TITLE,     //标题
-        ITEM_HOT,       //热门
-        ITEM_CONTENT    //内容
+        ITEM_TOP,       //滚动栏
+        ITEM_CONTENT,    //条目内容
+        CARD_CONTENT    //卡片内容
     }
 
-    public NewsListAdapter(Context mContext, List<NewsListBean> mList, String typeStr) {
+    public NewsListAdapter(Context mContext, List<NewsListBean.ListBean> mList, int mPageType) {
         this.mList = mList;
         this.mContext = mContext;
-        this.mType = typeStr;
+        this.mPageType = mPageType;
         inflater = LayoutInflater.from(mContext);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (!mHotFlag) {
-            return ITEM_TYPE.ITEM_CONTENT.ordinal();
-        } else {
-            if (position == 0) {
-                return ITEM_TYPE.ITEM_TITLE.ordinal();
-            } else if (position > 0 && position <= 3) {
-                return ITEM_TYPE.ITEM_HOT.ordinal();
-            } else {
-                return ITEM_TYPE.ITEM_CONTENT.ordinal();
+        switch (mPageType) {
+            case Constants.TYPE_SCROLL: {
+                if (position == 0) {
+                    return ITEM_TYPE.ITEM_TOP.ordinal();
+                } else {
+                    return ITEM_TYPE.ITEM_CONTENT.ordinal();
+                }
             }
+            case Constants.TYPE_CARD:
+                return ITEM_TYPE.CARD_CONTENT.ordinal();
+            default:
+                return ITEM_TYPE.ITEM_CONTENT.ordinal();
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == ITEM_TYPE.ITEM_TITLE.ordinal()) {
-            return new TitleViewHolder(inflater.inflate(R.layout.item_news_title, parent, false));
-        } else if (viewType == ITEM_TYPE.ITEM_HOT.ordinal()) {
-            return new HotViewHolder(inflater.inflate(R.layout.item_news_hot, parent, false));
+        if (viewType == ITEM_TYPE.ITEM_TOP.ordinal()) {
+            mAdapter = new TopPagerAdapter(mContext, mTopList);
+            return new TopViewHolder(inflater.inflate(R.layout.item_top, parent, false));
         }
         return new ContentViewHolder(inflater.inflate(R.layout.item_news, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        NewsListBean bean = mList.get(0);
-        if (position > 0) {
-            bean = mList.get(position - 1);
-        }
         if (holder instanceof ContentViewHolder) {
-            if (bean.getScreenshot() != null && bean.getScreenshot().getUrl() != null) {
-                ImageLoader.load(mContext, bean.getScreenshot().getUrl(), ((ContentViewHolder) holder).ivImg);
-            } else {
-                ((ContentViewHolder) holder).ivImg.setImageResource(R.mipmap.ic_launcher);
+            int contentPosition = position;
+            if (mPageType == Constants.TYPE_SCROLL) {
+                contentPosition = position - 1;
             }
-            ((ContentViewHolder) holder).tvTitle.setText(bean.getTitle());
-            ((ContentViewHolder) holder).tvInfo.setText(getItemInfoStr(bean.getCollectionCount(),
-                    bean.getCommentsCount(),
-                    bean.getUser().getUsername(),
-                    DateUtil.formatDate2String(DateUtil.subStandardTime(bean.getCreatedAt()))));
-            holder.itemView.setOnClickListener(new MyOnClickListener(--position));
-        } else if (holder instanceof HotViewHolder) {
-            if (bean.getScreenshot() != null && bean.getScreenshot().getUrl() != null) {
-                ImageLoader.load(mContext, bean.getScreenshot().getUrl(), ((HotViewHolder) holder).ivImg);
-            } else {
-                ((HotViewHolder) holder).ivImg.setImageResource(R.mipmap.ic_launcher);
-            }
-            ((HotViewHolder) holder).tvTitle.setText(bean.getTitle());
-            ((HotViewHolder) holder).tvLike.setText(String.valueOf(bean.getCollectionCount()));
-            ((HotViewHolder) holder).tvAuthor.setText(String.valueOf(bean.getUser().getUsername()));
-            ((HotViewHolder) holder).tvTime.setText(DateUtil.formatDate2String(DateUtil.subStandardTime(bean.getCreatedAt())));
-            holder.itemView.setOnClickListener(new MyOnClickListener(--position));
-        } else {
-            ((TitleViewHolder) holder).tvTitle.setText(String.format("%s 热门", mType));
-            ((TitleViewHolder) holder).btnClose.setOnClickListener(new View.OnClickListener() {
+            ((ContentViewHolder) holder).title.setText(mList.get(contentPosition).getTitle());
+            ImageLoader.load(mContext, mList.get(contentPosition).getPic(), ((ContentViewHolder) holder).image);
+            final int finalContentPosition = contentPosition;
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mHotFlag = false;
-                    for (int i = 0; i < 4; i++) {
-                        mList.remove(0);
-                    }
-                    notifyItemRangeRemoved(0, 4);
-                    if (onHotCloseListener != null) {
-                        onHotCloseListener.onClose();
+                    if (onItemClickListener != null) {
+                        ImageView iv = (ImageView) view.findViewById(R.id.iv_news_item_image);
+                        onItemClickListener.onItemClick(finalContentPosition, iv);
                     }
                 }
             });
+        } else {
+            ((TopViewHolder) holder).vpTop.setAdapter(mAdapter);
+            topViewPager = ((TopViewHolder) holder).vpTop;
         }
     }
 
@@ -125,12 +116,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public static class ContentViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_news_item_title)
-        TextView tvTitle;
-        @BindView(R.id.tv_news_item_info)
-        TextView tvInfo;
-        @BindView(R.id.iv_news_item_img)
-        SquareImageView ivImg;
+        @BindView(R.id.tv_daily_item_title)
+        TextView title;
+        @BindView(R.id.iv_news_item_image)
+        SquareImageView image;
 
         public ContentViewHolder(View itemView) {
             super(itemView);
@@ -138,93 +127,42 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    public static class HotViewHolder extends RecyclerView.ViewHolder {
+    public static class TopViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_news_item_title)
-        TextView tvTitle;
-        @BindView(R.id.tv_news_item_like)
-        TextView tvLike;
-        @BindView(R.id.tv_news_item_author)
-        TextView tvAuthor;
-        @BindView(R.id.tv_news_item_time)
-        TextView tvTime;
-        @BindView(R.id.iv_news_item_img)
-        SquareImageView ivImg;
+        @BindView(R.id.vp_top)
+        ViewPager vpTop;
+        @BindView(R.id.ll_point_container)
+        LinearLayout llContainer;
 
-        public HotViewHolder(View itemView) {
+        public TopViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
-    public static class TitleViewHolder extends RecyclerView.ViewHolder {
+    public void updateData(List<NewsListBean.ListBean> infos) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new NewsDiffCallback(mList, infos), true);
+        this.mList = infos;
+        diffResult.dispatchUpdatesTo(this);
+//        notifyDataSetChanged();
+    }
 
-        @BindView(R.id.tv_news_hot_title)
-        TextView tvTitle;
-        @BindView(R.id.btn_news_hot_close)
-        AppCompatButton btnClose;
+    public void addNewsTopData(List<NewsTopListBean.DataBean> infos) {
+        this.mTopList = infos;
+        mAdapter.notifyDataSetChanged();
+    }
 
-        public TitleViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+    public void changeTopPager(int currentCount) {
+        if (mPageType == Constants.TYPE_SCROLL) {
+            topViewPager.setCurrentItem(currentCount);
         }
     }
 
-    private class MyOnClickListener implements View.OnClickListener {
-
-        private int position;
-
-        public MyOnClickListener(int position) {
-            this.position = position;
-            if (position < 0) {
-                this.position = 0;
-            }
-        }
-
-        @Override
-        public void onClick(View view) {
-            //TODO
-//            String imgUrl = null;
-//            if (mList.get(position).getScreenshot() != null && mList.get(position).getScreenshot().getUrl() != null)
-//                imgUrl = mList.get(position).getScreenshot().getUrl();
-//            TechDetailActivity.launch(new TechDetailActivity.Builder()
-//                    .setContext(mContext)
-//                    .setId(mList.get(position).getObjectId())
-//                    .setTitle(mList.get(position).getTitle())
-//                    .setUrl(mList.get(position).getUrl())
-//                    .setImgUrl(imgUrl)
-//                    .setType(Constants.TYPE_NEWS));
-        }
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
-    private String getItemInfoStr(int likeNum, int cmtNum, String author, String time) {
-        StringBuilder sb = new StringBuilder(String.valueOf(likeNum));
-        sb.append("人收藏 · ");
-        sb.append(cmtNum);
-        sb.append("条评论 · ");
-        sb.append(author);
-        sb.append(" · ");
-        sb.append(time);
-        return sb.toString();
-    }
-
-    public void updateData(List<NewsListBean> list) {
-        mList = list;
-    }
-
-    public void setHotFlag(boolean hotFlag) {
-        this.mHotFlag = hotFlag;
-    }
-
-    public boolean getHotFlag() {
-        return mHotFlag;
-    }
-
-    public interface OnHotCloseListener {
-        void onClose();
-    }
-
-    public void setOnHotCloseListener(OnHotCloseListener onHotCloseListener) {
-        this.onHotCloseListener = onHotCloseListener;
+    public interface OnItemClickListener {
+        void onItemClick(int position, View view);
     }
 }

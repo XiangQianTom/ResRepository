@@ -2,6 +2,7 @@ package com.si.mynews.fragment;
 
 import com.si.mynews.base.BaseFragment;
 import com.si.mynews.model.bean.NewsListBean;
+import com.si.mynews.model.bean.NewsTopListBean;
 import com.si.mynews.presenter.NewsPresenter;
 import com.si.mynews.presenter.contract.NewsContract;
 
@@ -14,8 +15,6 @@ import si.mynews.R;
  */
 
 public class NewsPagerFragment extends BaseFragment<NewsPresenter> implements NewsContract.View {
-
-
 
     private boolean isLoadingMore = false;
     private String mType;
@@ -36,17 +35,27 @@ public class NewsPagerFragment extends BaseFragment<NewsPresenter> implements Ne
     }
 
     @Override
-    public void showContent(List<NewsListBean> goldListBean) {
-
-    }
-
-    @Override
-    public void showMoreContent(List<NewsListBean> goldMoreListBean, int start, int end) {
-
-    }
-
-    @Override
     public void showError(String msg) {
+
+    }
+
+    @Override
+    public void showTopContent(List<NewsTopListBean.DataBean> newsTopListBeen) {
+
+    }
+
+    @Override
+    public void doInterval(int currentCount) {
+
+    }
+
+    @Override
+    public void showContent(List<NewsListBean.ListBean> newsListBean) {
+
+    }
+
+    @Override
+    public void showMoreContent(List<NewsListBean.ListBean> newsMoreListBean, int start, int end) {
 
     }
 }

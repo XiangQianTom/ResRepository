@@ -33,6 +33,7 @@
             android:theme="@style/MainTheme"></activity>
         <activity android:name="com.si.mynews.ui.TestActivity" />
         <activity android:name="com.si.mynews.ui.NewsManagerActivity" />
+        <activity android:name="com.si.mynews.ui.NewsDetailActivity" />
 
         <service android:name="com.si.mynews.component.InitializeService" />
     </application>
