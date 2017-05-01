@@ -6,13 +6,13 @@ package com.si.mynews.model.http.response;
 
 public class NewsHttpResponse<T> {
 
-    private T results;
+    private T result;
 
-    public T getResults() {
-        return results;
+    public T getResult() {
+        return result;
     }
 
-    public void setResults(T results) {
-        this.results = results;
+    public void setResult(T result) {
+        this.result = result;
     }
 }

@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.si.mynews.app.App;
 import com.si.mynews.app.Constants;
 import com.si.mynews.base.BaseActivity;
-import com.si.mynews.fragment.news.NewsMainFragment;
+import com.si.mynews.fragment.NewsMainFragment;
 import com.si.mynews.presenter.MainPresenter;
 import com.si.mynews.presenter.contract.MainContract;
 import com.si.mynews.util.SharedPreferenceUtil;
@@ -65,7 +65,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int b=1/0;
         if (savedInstanceState == null) {
             SharedPreferenceUtil.setNightModeState(false);
         } else {

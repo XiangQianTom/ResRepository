@@ -1,4 +1,4 @@
-package com.si.mynews.fragment.news;
+package com.si.mynews.fragment;
 
 import com.si.mynews.base.BaseFragment;
 import com.si.mynews.model.bean.NewsListBean;

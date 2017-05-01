@@ -19,20 +19,26 @@ package com.si.mynews.model.http.api;
  */
 
 import com.si.mynews.model.bean.NewsListBean;
+import com.si.mynews.model.bean.NewsTopListBean;
 import com.si.mynews.model.http.response.NewsHttpResponse;
-
-import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
 
 public interface NewsApis {
-    String HOST = "http://api.tianapi.com/";
+    String HOST = "http://api.jisuapi.com/news/";
+    String HOST_TOP = "http://v.juhe.cn/toutiao/";
 
     /**
-     * 社会新闻
+     * 新闻
      */
-    @GET("social")
-    Observable<NewsHttpResponse<List<NewsListBean>>> getSocialNews(@Query("key") String keyApi, @Query("num") int num);
+    @GET("get")
+    Observable<NewsHttpResponse<NewsListBean>> getNews(@Query("channel") String channel, @Query("start") int start, @Query("num") int num, @Query("appkey") String appkey);
+
+    /**
+     * 滚动新闻
+     */
+    @GET("index")
+    Observable<NewsHttpResponse<NewsTopListBean>> getNews(@Query("type") String type, @Query("key") String key);
 }

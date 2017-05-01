@@ -4,9 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.si.mynews.fragment.news.NewsPagerFragment;
+import com.si.mynews.fragment.NewsPagerFragment;
 
 import java.util.List;
+
 
 /**
  * Created by si on 16/11/28.

@@ -13,32 +13,20 @@ public class Constants {
 
     public static final int TYPE_NEWS = 101;
 
-    public static final int TYPE_ANDROID = 102;
+    public static final int TYPE_SETTING = 102;
 
-    public static final int TYPE_IOS = 103;
+    public static final int TYPE_LIKE = 103;
 
-    public static final int TYPE_WEB = 104;
-
-    public static final int TYPE_GIRL = 105;
-
-    public static final int TYPE_WECHAT = 106;
-
-    public static final int TYPE_GANK = 107;
-
-    public static final int TYPE_GOLD = 108;
-
-    public static final int TYPE_VTEX = 109;
-
-    public static final int TYPE_SETTING = 110;
-
-    public static final int TYPE_LIKE = 111;
-
-    public static final int TYPE_ABOUT = 112;
+    public static final int TYPE_ABOUT = 104;
 
     //================= KEY ====================
 
-    //    public static final String KEY_API = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
-    public static final String KEY_API = "52b7ec3471ac3bec6846577e79f20e4c"; //需要APIKEY请去 http://www.tianapi.com/#wxnew 申请,复用会减少访问可用次数
+    //    public static final String KEY_API_TIANXING = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
+    public static final String KEY_API_TIANXING = "52b7ec3471ac3bec6846577e79f20e4c";
+
+    public static final String KEY_API_JISU = "8b25b99b079c7d2b";
+
+    public static final String KEY_API_JUHE = "d1137c713f1e443946edd850aff8eed4";
 
     public static final String KEY_ALIPAY = "aex07566wvayrgxicnaraae";
 
@@ -87,11 +75,11 @@ public class Constants {
 
     public static final String IT_DETAIL_TYPE = "type";
 
-    public static final String IT_GOLD_TYPE = "type";
+    public static final String IT_NEWS_TYPE = "news_type";
 
-    public static final String IT_GOLD_TYPE_STR = "type_str";
+    public static final String IT_PAGE_TYPE = "page_type";
 
-    public static final String IT_GOLD_MANAGER = "manager";
+    public static final String IT_NEWS_MANAGER = "manager";
 
     public static final String IT_VTEX_TYPE = "type";
 
@@ -100,4 +88,9 @@ public class Constants {
     public static final String IT_VTEX_REPLIES_TOP = "top_info";
 
     public static final String IT_VTEX_NODE_NAME = "node_name";
+
+    public static final int TYPE_SCROLL = 1;
+    public static final int TYPE_ITEM = 2;
+    public static final int TYPE_CARD = 3;
+    public static final String NEWSBEAN = "newsbean";
 }

@@ -7,7 +7,6 @@ import com.si.mynews.model.bean.NewsManagerItemBean;
 import com.si.mynews.model.db.RealmHelper;
 import com.si.mynews.presenter.contract.NewsMainContract;
 import com.si.mynews.util.RxUtil;
-import com.si.mynews.util.SharedPreferenceUtil;
 
 import javax.inject.Inject;
 
@@ -45,20 +44,7 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
 
     @Override
     public void initManagerList() {
-        if (SharedPreferenceUtil.getManagerPoint()) {
-            //第一次使用，生成默认ManagerList
-            initList();
-            mRealmHelper.updateNewsManagerList(new NewsManagerBean(mList));
-            mView.updateTab(mList);
-        } else {
-            if (mRealmHelper.getGoldManagerList() == null) {
-                initList();
-                mRealmHelper.updateNewsManagerList(new NewsManagerBean(mList));
-            } else {
-                mList = mRealmHelper.getGoldManagerList().getManagerList();
-            }
-            mView.updateTab(mList);
-        }
+
     }
 
     @Override
@@ -67,14 +53,5 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
     }
 
     private void initList() {
-        mList = new RealmList<>();
-        mList.add(new NewsManagerItemBean(0, true));
-        mList.add(new NewsManagerItemBean(1, true));
-        mList.add(new NewsManagerItemBean(2, true));
-        mList.add(new NewsManagerItemBean(3, true));
-        mList.add(new NewsManagerItemBean(4, false));
-        mList.add(new NewsManagerItemBean(5, false));
-        mList.add(new NewsManagerItemBean(6, false));
-        mList.add(new NewsManagerItemBean(7, false));
     }
 }

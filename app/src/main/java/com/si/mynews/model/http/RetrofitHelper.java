@@ -4,6 +4,7 @@ package com.si.mynews.model.http;
 import com.si.mynews.BuildConfig;
 import com.si.mynews.app.Constants;
 import com.si.mynews.model.bean.NewsListBean;
+import com.si.mynews.model.bean.NewsTopListBean;
 import com.si.mynews.model.bean.WelcomeBean;
 import com.si.mynews.model.http.api.NewsApis;
 import com.si.mynews.model.http.api.ZhihuApis;
@@ -12,7 +13,6 @@ import com.si.mynews.util.SystemUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -29,13 +29,14 @@ import rx.Observable;
 
 
 /**
- * Created by codeest on 2016/8/3.
+ * Created by si on 2016/8/3.
  */
 public class RetrofitHelper {
 
     private static OkHttpClient okHttpClient = null;
     private static ZhihuApis zhihuApiService = null;
     private static NewsApis newsApiService = null;
+    private NewsApis newsTopApiService = null;
 
     public RetrofitHelper() {
         init();
@@ -45,6 +46,7 @@ public class RetrofitHelper {
         initOkHttp();
         zhihuApiService = getApiService(ZhihuApis.HOST, ZhihuApis.class);
         newsApiService = getApiService(NewsApis.HOST, NewsApis.class);
+        newsTopApiService = getApiService(NewsApis.HOST_TOP, NewsApis.class);
     }
 
     private static void initOkHttp() {
@@ -91,7 +93,7 @@ public class RetrofitHelper {
 //            public Response intercept(Chain chain) throws IOException {
 //                Request request = chain.request();
 //                request = request.newBuilder()
-//                        .addHeader("apikey",Constants.KEY_API)
+//                        .addHeader("apikey",Constants.KEY_API_TIANXING)
 //                        .build();
 //                return chain.proceed(request);
 //            }
@@ -125,7 +127,11 @@ public class RetrofitHelper {
         return zhihuApiService.getWelcomeInfo(res);
     }
 
-    public Observable<NewsHttpResponse<List<NewsListBean>>> fetchNewsList(int num) {
-        return newsApiService.getSocialNews(Constants.KEY_API, num);
+    public Observable<NewsHttpResponse<NewsListBean>> fetchNewsList(String channel, int start, int num) {
+        return newsApiService.getNews(channel, start, num, Constants.KEY_API_JISU);
+    }
+
+    public Observable<NewsHttpResponse<NewsTopListBean>> fetchNewsList(String type) {
+        return newsTopApiService.getNews(type,Constants.KEY_API_JUHE);
     }
 }

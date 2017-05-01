@@ -15,6 +15,9 @@ public class NewsManagerBean extends RealmObject implements Parcelable {
     public NewsManagerBean() {
 
     }
+    public NewsManagerBean(RealmList<NewsManagerItemBean> mList) {
+        this.managerList = mList;
+    }
 
     private RealmList<NewsManagerItemBean> managerList;
 
@@ -39,10 +42,6 @@ public class NewsManagerBean extends RealmObject implements Parcelable {
     protected NewsManagerBean(Parcel in) {
         this.managerList = new RealmList<>();
         in.readList(this.managerList, NewsManagerItemBean.class.getClassLoader());
-    }
-
-    public NewsManagerBean(RealmList<NewsManagerItemBean> mList) {
-        this.managerList = mList;
     }
 
     public static final Parcelable.Creator<NewsManagerBean> CREATOR = new Parcelable.Creator<NewsManagerBean>() {

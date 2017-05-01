@@ -11,17 +11,27 @@ import io.realm.RealmObject;
 
 public class NewsManagerItemBean extends RealmObject implements Parcelable {
 
+    private int pageType;
+    private String type;
     private int index;
-
     private boolean isSelect;
 
     public NewsManagerItemBean() {
-
     }
 
-    public NewsManagerItemBean(int index, boolean isSelect) {
+    public NewsManagerItemBean(int index, boolean isSelect, String type, int pageType) {
         this.index = index;
         this.isSelect = isSelect;
+        this.type = type;
+        this.pageType = pageType;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getIndex() {
@@ -40,6 +50,14 @@ public class NewsManagerItemBean extends RealmObject implements Parcelable {
         isSelect = select;
     }
 
+    public int getPageType() {
+        return pageType;
+    }
+
+    public void setPageType(int pageType) {
+        this.pageType = pageType;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -49,11 +67,15 @@ public class NewsManagerItemBean extends RealmObject implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.index);
         dest.writeByte(this.isSelect ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.pageType);
+        dest.writeString(this.type);
     }
 
     protected NewsManagerItemBean(Parcel in) {
         this.index = in.readInt();
         this.isSelect = in.readByte() != 0;
+        this.pageType = in.readInt();
+        this.type = in.readString();
     }
 
     public static final Parcelable.Creator<NewsManagerItemBean> CREATOR = new Parcelable.Creator<NewsManagerItemBean>() {

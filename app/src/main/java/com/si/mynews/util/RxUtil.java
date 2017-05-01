@@ -3,8 +3,8 @@ package com.si.mynews.util;
 
 import com.si.mynews.model.http.exception.ApiException;
 import com.si.mynews.model.http.response.GankHttpResponse;
-import com.si.mynews.model.http.response.NewsHttpResponse;
 import com.si.mynews.model.http.response.MyHttpResponse;
+import com.si.mynews.model.http.response.NewsHttpResponse;
 import com.si.mynews.model.http.response.WXHttpResponse;
 
 import rx.Observable;
@@ -14,7 +14,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by codeest on 2016/8/3.
+ * Created by si on 2016/2/3.
  */
 public class RxUtil {
 
@@ -107,15 +107,15 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<NewsHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
+    public static <T> Observable.Transformer<NewsHttpResponse<T>, T> handleNewsResult() {   //compose判断结果
         return new Observable.Transformer<NewsHttpResponse<T>, T>() {
             @Override
             public Observable<T> call(Observable<NewsHttpResponse<T>> httpResponseObservable) {
                 return httpResponseObservable.flatMap(new Func1<NewsHttpResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(NewsHttpResponse<T> tNewsHttpResponse) {
-                        if(tNewsHttpResponse.getResults() != null) {
-                            return createData(tNewsHttpResponse.getResults());
+                        if(tNewsHttpResponse.getResult() != null) {
+                            return createData(tNewsHttpResponse.getResult());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
                         }
