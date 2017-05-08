@@ -3,8 +3,8 @@ package com.si.mynews.util;
 
 import com.si.mynews.model.http.exception.ApiException;
 import com.si.mynews.model.http.response.GankHttpResponse;
+import com.si.mynews.model.http.response.JiSuHttpResponse;
 import com.si.mynews.model.http.response.MyHttpResponse;
-import com.si.mynews.model.http.response.NewsHttpResponse;
 import com.si.mynews.model.http.response.WXHttpResponse;
 
 import rx.Observable;
@@ -20,6 +20,7 @@ public class RxUtil {
 
     /**
      * 统一线程处理
+     *
      * @param <T>
      * @return
      */
@@ -35,6 +36,7 @@ public class RxUtil {
 
     /**
      * 统一返回结果处理
+     *
      * @param <T>
      * @return
      */
@@ -45,7 +47,7 @@ public class RxUtil {
                 return httpResponseObservable.flatMap(new Func1<GankHttpResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(GankHttpResponse<T> tGankHttpResponse) {
-                        if(!tGankHttpResponse.getError()) {
+                        if (!tGankHttpResponse.getError()) {
                             return createData(tGankHttpResponse.getResults());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
@@ -58,6 +60,7 @@ public class RxUtil {
 
     /**
      * 统一返回结果处理
+     *
      * @param <T>
      * @return
      */
@@ -68,7 +71,7 @@ public class RxUtil {
                 return httpResponseObservable.flatMap(new Func1<WXHttpResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(WXHttpResponse<T> tWXHttpResponse) {
-                        if(tWXHttpResponse.getCode() == 200) {
+                        if (tWXHttpResponse.getCode() == 200) {
                             return createData(tWXHttpResponse.getNewslist());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
@@ -81,6 +84,7 @@ public class RxUtil {
 
     /**
      * 统一返回结果处理
+     *
      * @param <T>
      * @return
      */
@@ -91,7 +95,7 @@ public class RxUtil {
                 return httpResponseObservable.flatMap(new Func1<MyHttpResponse<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(MyHttpResponse<T> tMyHttpResponse) {
-                        if(tMyHttpResponse.getCode() == 200) {
+                        if (tMyHttpResponse.getCode() == 200) {
                             return createData(tMyHttpResponse.getData());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
@@ -104,18 +108,19 @@ public class RxUtil {
 
     /**
      * 统一返回结果处理
+     *
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<NewsHttpResponse<T>, T> handleNewsResult() {   //compose判断结果
-        return new Observable.Transformer<NewsHttpResponse<T>, T>() {
+    public static <T> Observable.Transformer<JiSuHttpResponse<T>, T> handleNewsResult() {   //compose判断结果
+        return new Observable.Transformer<JiSuHttpResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<NewsHttpResponse<T>> httpResponseObservable) {
-                return httpResponseObservable.flatMap(new Func1<NewsHttpResponse<T>, Observable<T>>() {
+            public Observable<T> call(Observable<JiSuHttpResponse<T>> httpResponseObservable) {
+                return httpResponseObservable.flatMap(new Func1<JiSuHttpResponse<T>, Observable<T>>() {
                     @Override
-                    public Observable<T> call(NewsHttpResponse<T> tNewsHttpResponse) {
-                        if(tNewsHttpResponse.getResult() != null) {
-                            return createData(tNewsHttpResponse.getResult());
+                    public Observable<T> call(JiSuHttpResponse<T> jiSuHttpResponse) {
+                        if (jiSuHttpResponse.getResult() != null) {
+                            return createData(jiSuHttpResponse.getResult());
                         } else {
                             return Observable.error(new ApiException("服务器返回error"));
                         }
@@ -127,6 +132,7 @@ public class RxUtil {
 
     /**
      * 生成Observable
+     *
      * @param <T>
      * @return
      */

@@ -6,7 +6,7 @@ import com.si.mynews.base.RxPresenter;
 import com.si.mynews.model.bean.NewsListBean;
 import com.si.mynews.model.bean.NewsTopListBean;
 import com.si.mynews.model.http.RetrofitHelper;
-import com.si.mynews.model.http.response.NewsHttpResponse;
+import com.si.mynews.model.http.response.JiSuHttpResponse;
 import com.si.mynews.presenter.contract.NewsContract;
 import com.si.mynews.util.RxUtil;
 
@@ -77,51 +77,45 @@ public class NewsPresenter extends RxPresenter<NewsContract.View> implements New
         mType = type;
         currentPage = 0;
         totalList.clear();
-        Subscription rxSubscription = mRetrofitHelper.fetchNewsList(mType, 0, NUM_EACH_PAGE).compose(RxUtil.<NewsHttpResponse<NewsListBean>>rxSchedulerHelper())
+        Subscription subscribe = mRetrofitHelper.fetchNewsList(mType, 0, NUM_EACH_PAGE).compose(RxUtil.<JiSuHttpResponse<NewsListBean>>rxSchedulerHelper())
                 .compose(RxUtil.<NewsListBean>handleNewsResult())
                 .subscribe(new Action1<NewsListBean>() {
                     @Override
                     public void call(NewsListBean newsListBean) {
                         List<NewsListBean.ListBean> newsList = newsListBean.getList();
-                        for (int i = 0; i < newsList.size(); i++) {
-                            Log.e(TAG, "111111111111111getNewsData\t" + newsList.get(i).getTitle() + "\t数目\t" + newsList.size());
-                        }
                         totalList.addAll(newsList);
                         mView.showContent(totalList);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e(TAG, "22222222222222222getNewsData\t" + throwable.getMessage());
+                        Log.e(TAG, "getNewsData\t" + throwable.getMessage());
                         mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
-        addSubscrebe(rxSubscription);
+        addSubscrebe(subscribe);
     }
 
     @Override
     public void getMoreNewsData() {
-        Subscription rxSubscription = mRetrofitHelper.fetchNewsList(mType, NUM_EACH_PAGE * (++currentPage), NUM_EACH_PAGE)
-                .compose(RxUtil.<NewsHttpResponse<NewsListBean>>rxSchedulerHelper())
+        Subscription subscribe = mRetrofitHelper.fetchNewsList(mType, NUM_EACH_PAGE * (++currentPage), NUM_EACH_PAGE)
+                .compose(RxUtil.<JiSuHttpResponse<NewsListBean>>rxSchedulerHelper())
                 .compose(RxUtil.<NewsListBean>handleNewsResult())
                 .subscribe(new Action1<NewsListBean>() {
                     @Override
                     public void call(NewsListBean newsListBean) {
                         List<NewsListBean.ListBean> newsListBeanList = newsListBean.getList();
-                        for (int i = 0; i < newsListBeanList.size(); i++) {
-                            Log.e(TAG, "111111111111111getMoreNewsData\t" + newsListBeanList.get(i).getTitle() + "\t数目\t" + newsListBeanList.size());
-                        }
                         totalList.addAll(newsListBeanList);
                         mView.showMoreContent(totalList, totalList.size(), totalList.size() + NUM_EACH_PAGE);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e(TAG, "222222222222222getMoreNewsData\t" + throwable.getMessage());
+                        Log.e(TAG, "getMoreNewsData\t" + throwable.getMessage());
                         mView.showError("数据加载失败ヽ(≧Д≦)ノ");
                     }
                 });
-        addSubscrebe(rxSubscription);
+        addSubscrebe(subscribe);
     }
 
     private void getScrollTopData(String newsType) {
@@ -148,24 +142,22 @@ public class NewsPresenter extends RxPresenter<NewsContract.View> implements New
     }
 
     private void getScrollTopList(String type) {
-        mRetrofitHelper.fetchNewsList(type)
-                .compose(RxUtil.<NewsHttpResponse<NewsTopListBean>>rxSchedulerHelper())
+        Subscription subscribe = mRetrofitHelper.fetchNewsList(type)
+                .compose(RxUtil.<JiSuHttpResponse<NewsTopListBean>>rxSchedulerHelper())
                 .compose(RxUtil.<NewsTopListBean>handleNewsResult()).subscribe(new Action1<NewsTopListBean>() {
-            @Override
-            public void call(NewsTopListBean newsTopListBeen) {
-                List<NewsTopListBean.DataBean> data = newsTopListBeen.getData();
-                for (int i = 0; i < data.size(); i++) {
-                    Log.e(TAG, "111111111111111getScrollTopList\t" + data.get(i).getTitle() + "\t数目\t" + data.size());
-                }
-                topCount = data.size();
-                mView.showTopContent(data);
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                Log.e(TAG, "2222222222222222getScrollTopList\t" + throwable.getMessage());
-                mView.showError("数据加载失败ヽ(≧Д≦)ノ");
-            }
-        });
+                    @Override
+                    public void call(NewsTopListBean newsTopListBeen) {
+                        List<NewsTopListBean.DataBean> data = newsTopListBeen.getData();
+                        topCount = data.size();
+                        mView.showTopContent(data);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.e(TAG, "getScrollTopList\t" + throwable.getMessage());
+                        mView.showError("数据加载失败ヽ(≧Д≦)ノ");
+                    }
+                });
+        addSubscrebe(subscribe);
     }
 }

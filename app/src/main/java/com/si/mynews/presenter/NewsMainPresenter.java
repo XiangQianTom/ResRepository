@@ -32,7 +32,7 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
     }
 
     private void registerEvent() {
-        Subscription rxSubscription = RxBus.getDefault().toObservable(NewsManagerBean.class)
+        Subscription subscribe = RxBus.getDefault().toObservable(NewsManagerBean.class)
                 .compose(RxUtil.<NewsManagerBean>rxSchedulerHelper())
                 .subscribe(new Action1<NewsManagerBean>() {
                     @Override
@@ -41,7 +41,7 @@ public class NewsMainPresenter extends RxPresenter<NewsMainContract.View> implem
                         mView.updateTab(newsManagerBean.getManagerList());
                     }
                 });
-        addSubscrebe(rxSubscription);
+        addSubscrebe(subscribe);
     }
 
     @Override

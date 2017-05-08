@@ -3,16 +3,22 @@ package com.si.mynews.model.http;
 
 import com.si.mynews.BuildConfig;
 import com.si.mynews.app.Constants;
+import com.si.mynews.model.bean.JokeListBean;
 import com.si.mynews.model.bean.NewsListBean;
 import com.si.mynews.model.bean.NewsTopListBean;
+import com.si.mynews.model.bean.WXItemBean;
 import com.si.mynews.model.bean.WelcomeBean;
+import com.si.mynews.model.http.api.JokeApis;
 import com.si.mynews.model.http.api.NewsApis;
+import com.si.mynews.model.http.api.WeChatApis;
 import com.si.mynews.model.http.api.ZhihuApis;
-import com.si.mynews.model.http.response.NewsHttpResponse;
+import com.si.mynews.model.http.response.JiSuHttpResponse;
+import com.si.mynews.model.http.response.WXHttpResponse;
 import com.si.mynews.util.SystemUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -37,6 +43,8 @@ public class RetrofitHelper {
     private static ZhihuApis zhihuApiService = null;
     private static NewsApis newsApiService = null;
     private NewsApis newsTopApiService = null;
+    private JokeApis jokeApiService = null;
+    private static WeChatApis wechatApiService = null;
 
     public RetrofitHelper() {
         init();
@@ -47,6 +55,8 @@ public class RetrofitHelper {
         zhihuApiService = getApiService(ZhihuApis.HOST, ZhihuApis.class);
         newsApiService = getApiService(NewsApis.HOST, NewsApis.class);
         newsTopApiService = getApiService(NewsApis.HOST_TOP, NewsApis.class);
+        jokeApiService = getApiService(JokeApis.HOST, JokeApis.class);
+        wechatApiService = getApiService(WeChatApis.HOST, WeChatApis.class);
     }
 
     private static void initOkHttp() {
@@ -127,11 +137,19 @@ public class RetrofitHelper {
         return zhihuApiService.getWelcomeInfo(res);
     }
 
-    public Observable<NewsHttpResponse<NewsListBean>> fetchNewsList(String channel, int start, int num) {
+    public Observable<WXHttpResponse<List<WXItemBean>>> fetchWechatListInfo(int num, int page) {
+        return wechatApiService.getWXHot(Constants.KEY_API_TIANXING, num, page);
+    }
+
+    public Observable<JiSuHttpResponse<NewsListBean>> fetchNewsList(String channel, int start, int num) {
         return newsApiService.getNews(channel, start, num, Constants.KEY_API_JISU);
     }
 
-    public Observable<NewsHttpResponse<NewsTopListBean>> fetchNewsList(String type) {
-        return newsTopApiService.getNews(type,Constants.KEY_API_JUHE);
+    public Observable<JiSuHttpResponse<NewsTopListBean>> fetchNewsList(String type) {
+        return newsTopApiService.getNews(type, Constants.KEY_API_JUHE);
+    }
+
+    public Observable<JiSuHttpResponse<JokeListBean>> fetchJoke(int pageNum, int pageSize) {
+        return jokeApiService.getJoke(pageNum, pageSize, JokeApis.SORT, Constants.KEY_API_JISU);
     }
 }

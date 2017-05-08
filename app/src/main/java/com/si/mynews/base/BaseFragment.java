@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.si.mynews.di.component.DaggerFragmentComponent;
 import com.si.mynews.di.component.FragmentComponent;
 import com.si.mynews.di.module.FragmentModule;
 import com.si.mynews.presenter.contract.BaseView;
-import com.si.mynews.util.SnackbarUtil;
 
 import javax.inject.Inject;
 
@@ -35,15 +33,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     protected Context mContext;
     private Unbinder mUnBinder;
     protected boolean isInited = false;
-    private static String TAG = null;
 
     @Override
     public void onAttach(Context context) {
         mActivity = (Activity) context;
         mContext = context;
-        TAG = this.getClass().getSimpleName();
-        Log.e(TAG, TAG);
-        SnackbarUtil.showShort(getActivity().getWindow().getDecorView(), "当前Fragment" + TAG);
         super.onAttach(context);
     }
 

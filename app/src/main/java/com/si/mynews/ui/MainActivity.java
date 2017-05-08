@@ -3,8 +3,6 @@ package com.si.mynews.ui;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,7 +12,11 @@ import android.view.MenuItem;
 import com.si.mynews.app.App;
 import com.si.mynews.app.Constants;
 import com.si.mynews.base.BaseActivity;
+import com.si.mynews.fragment.AboutFragment;
+import com.si.mynews.fragment.JokeFragment;
+import com.si.mynews.fragment.LikeFragment;
 import com.si.mynews.fragment.NewsMainFragment;
+import com.si.mynews.fragment.WechatMainFragment;
 import com.si.mynews.presenter.MainPresenter;
 import com.si.mynews.presenter.contract.MainContract;
 import com.si.mynews.util.SharedPreferenceUtil;
@@ -31,9 +33,8 @@ import si.mynews.R;
  * Created by si on 16/8/9.
  */
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View{
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.toolbar)
@@ -43,6 +44,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     ActionBarDrawerToggle mDrawerToggle;
     NewsMainFragment mNewsFragment;
+    JokeFragment mJokeFragment;
+    WechatMainFragment mWechatFragment;
+    LikeFragment mLikeFragment;
+    AboutFragment mAboutFragment;
+
     MenuItem mLastMenuItem;
 
     private int hideFragment = Constants.TYPE_NEWS;
@@ -58,40 +64,31 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return R.layout.activity_main;
     }
 
-    /**
-     * 由于recreate 需要特殊处理夜间模式
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            SharedPreferenceUtil.setNightModeState(false);
-        } else {
-            showFragment = SharedPreferenceUtil.getCurrentItem();
-            hideFragment = Constants.TYPE_NEWS;
-            showHideFragment(getTargetFragment(showFragment), getTargetFragment(hideFragment));
-            mNavigationView.getMenu().findItem(R.id.drawer_news).setChecked(false);
-            mToolbar.setTitle(mNavigationView.getMenu().findItem(getCurrentItem(showFragment)).getTitle().toString());
-            hideFragment = showFragment;
-        }
-    }
-
     @Override
     protected void initEventAndData() {
-        setToolBar(mToolbar,"新闻专栏");
+        setToolBar(mToolbar, "新闻专栏");
         mNewsFragment = new NewsMainFragment();
+        mWechatFragment = new WechatMainFragment();
+        mJokeFragment = new JokeFragment();
+        mLikeFragment = new LikeFragment();
+        mAboutFragment = new AboutFragment();
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mLastMenuItem = mNavigationView.getMenu().findItem(R.id.drawer_news);
-        loadMultipleRootFragment(R.id.fl_main_content,0, mNewsFragment);
+        loadMultipleRootFragment(R.id.fl_main_content, 0, mNewsFragment, mWechatFragment, mJokeFragment, mLikeFragment, mAboutFragment);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.drawer_news:
                         showFragment = Constants.TYPE_NEWS;
+                        break;
+                    case R.id.drawer_wechat:
+                        showFragment = Constants.TYPE_WECHAT;
+                        break;
+                    case R.id.drawer_joke:
+                        showFragment = Constants.TYPE_JOKE;
                         break;
                     case R.id.drawer_setting:
                         showFragment = Constants.TYPE_SETTING;
@@ -103,7 +100,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         showFragment = Constants.TYPE_ABOUT;
                         break;
                 }
-                if(mLastMenuItem != null) {
+                if (mLastMenuItem != null) {
                     mLastMenuItem.setChecked(false);
                 }
                 mLastMenuItem = menuItem;
@@ -131,7 +128,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showError(String msg) {
-        SnackbarUtil.showShort(mToolbar,msg);
+        SnackbarUtil.showShort(mToolbar, msg);
     }
 
     @Override
@@ -157,16 +154,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (item) {
             case Constants.TYPE_NEWS:
                 return mNewsFragment;
+            case Constants.TYPE_WECHAT:
+                return mWechatFragment;
+            case Constants.TYPE_JOKE:
+                return mJokeFragment;
+            case Constants.TYPE_LIKE:
+                return mLikeFragment;
+            case Constants.TYPE_ABOUT:
+                return mAboutFragment;
         }
         return mNewsFragment;
-    }
-
-    private int getCurrentItem(int item) {
-        switch (item) {
-            case Constants.TYPE_NEWS:
-                return R.id.drawer_news;
-        }
-        return R.id.drawer_news;
     }
 
     @Override

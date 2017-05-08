@@ -31,9 +31,6 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
     @BindView(R.id.vp_news_main)
     ViewPager mViewPager;
 
-    public static String[] typeStr = {"Android", "iOS", "前端", "后端", "设计", "产品", "阅读", "工具资源"};
-    public static String[] type = {"android", "ios", "frontend", "backend", "design", "product", "article", "freebie"};
-
     List<NewsPagerFragment> fragments = new ArrayList<>();
     private int currentIndex = 0;
 
@@ -44,7 +41,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter> implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.frgament_news_main;
+        return R.layout.fragment_news_main;
     }
 
     @Override

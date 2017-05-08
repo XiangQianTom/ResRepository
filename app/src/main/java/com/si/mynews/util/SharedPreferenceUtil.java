@@ -29,14 +29,6 @@ public class SharedPreferenceUtil {
         return App.getInstance().getSharedPreferences(SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
     }
 
-    public static boolean getNightModeState() {
-        return getAppSp().getBoolean(Constants.SP_NIGHT_MODE, DEFAULT_NIGHT_MODE);
-    }
-
-    public static void setNightModeState(boolean state) {
-        getAppSp().edit().putBoolean(Constants.SP_NIGHT_MODE, state).apply();
-    }
-
     public static boolean getNoImageState() {
         return getAppSp().getBoolean(Constants.SP_NO_IMAGE, DEFAULT_NO_IMAGE);
     }

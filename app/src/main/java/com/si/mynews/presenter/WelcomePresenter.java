@@ -43,17 +43,13 @@ public class WelcomePresenter extends RxPresenter<WelcomeContract.View> implemen
                 .subscribe(new Action1<WelcomeBean>() {
                     @Override
                     public void call(WelcomeBean welcomeBean) {
-                        Log.e(TAG, "111111111111111111111111");
                         mView.showContent(welcomeBean);
                         startCountDown();
-                        Log.e(TAG, "2222222222222222222222222");
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Log.e(TAG, "333333333333333333");
                         mView.jumpToMain();
-                        Log.e(TAG, "444444444444444444");
                     }
                 });
         addSubscrebe(rxSubscription);

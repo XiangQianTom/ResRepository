@@ -4,7 +4,7 @@ package com.si.mynews.model.http.response;
  * Created by codeest on 16/11/27.
  */
 
-public class NewsHttpResponse<T> {
+public class JiSuHttpResponse<T> {
 
     private T result;
 

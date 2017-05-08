@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.si.mynews.adapter.NewsListAdapter;
@@ -32,7 +31,6 @@ import si.mynews.R;
 
 public class NewsPagerFragment extends BaseFragment<NewsPresenter> implements NewsContract.View {
 
-    private static final String TAG = NewsPagerFragment.class.getSimpleName();
     @BindView(R.id.rv_content)
     RecyclerView rvNewsList;
     @BindView(R.id.iv_progress)
@@ -113,7 +111,6 @@ public class NewsPagerFragment extends BaseFragment<NewsPresenter> implements Ne
         } else {
             ivProgress.stop();
         }
-        Log.e(TAG, "newListBean.size" + beanList.size());
         mList = beanList;
         mAdapter.updateData(beanList);
         mAdapter.notifyDataSetChanged();

@@ -2,9 +2,12 @@ package com.si.mynews.app;
 
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
@@ -15,6 +18,7 @@ import com.si.mynews.di.component.DaggerAppComponent;
 import com.si.mynews.di.module.AppModule;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class App extends MultiDexApplication {
@@ -99,5 +103,18 @@ public class App extends MultiDexApplication {
                     .build();
         }
         return appComponent;
+    }
+
+    public static boolean isAlive(Class clazz) {
+        ActivityManager am = (ActivityManager) mContext
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> list = am.getRunningServices(100);
+        for (ActivityManager.RunningServiceInfo runs : list) {
+            ComponentName run = runs.service;
+            if (TextUtils.equals(run.getClassName(), clazz.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

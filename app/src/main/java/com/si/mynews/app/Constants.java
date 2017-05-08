@@ -19,20 +19,16 @@ public class Constants {
 
     public static final int TYPE_ABOUT = 104;
 
+    public static final int TYPE_JOKE = 105;
+
+    public static final int TYPE_WECHAT = 106;
+
     //================= KEY ====================
-
-    //    public static final String KEY_API_TIANXING = "f95283476506aa756559dd28a56f0c0b"; //需要APIKEY请去 http://apistore.baidu.com/ 申请,复用会减少访问可用次数
-    public static final String KEY_API_TIANXING = "52b7ec3471ac3bec6846577e79f20e4c";
-
     public static final String KEY_API_JISU = "8b25b99b079c7d2b";
 
     public static final String KEY_API_JUHE = "d1137c713f1e443946edd850aff8eed4";
 
-    public static final String KEY_ALIPAY = "aex07566wvayrgxicnaraae";
-
-    public static final String LEANCLOUD_ID = "mhke0kuv33myn4t4ghuid4oq2hjj12li374hvcif202y5bm6";
-
-    public static final String LEANCLOUD_SIGN = "badc5461a25a46291054b902887a68eb,1480438132702";
+    public static final String KEY_API_TIANXING = "52b7ec3471ac3bec6846577e79f20e4c";
 
     public static final String BUGLY_ID = "2a600fd01d";
 
@@ -93,4 +89,5 @@ public class Constants {
     public static final int TYPE_ITEM = 2;
     public static final int TYPE_CARD = 3;
     public static final String NEWSBEAN = "newsbean";
+    public static final String AIDL_SPEAK_OVER = "aidl_speak_over";
 }

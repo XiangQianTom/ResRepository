@@ -2,7 +2,6 @@ package com.si.mynews.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.si.mynews.component.ImageLoader;
 import com.si.mynews.model.bean.NewsTopListBean;
 import com.si.mynews.ui.NewsDetailActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import si.mynews.R;
@@ -22,14 +20,10 @@ import si.mynews.R;
  * Created by si on 16/8/13.
  */
 
-public class TopPagerAdapter extends PagerAdapter {
+public class TopPagerAdapter extends MyBasePageAdapter {
 
-    private List<NewsTopListBean.DataBean> mList = new ArrayList<>();
-    private Context mContext;
-
-    public TopPagerAdapter(Context context, List<NewsTopListBean.DataBean> mList) {
-        this.mList = mList;
-        this.mContext = context;
+    public TopPagerAdapter(Context context, List<?> mList) {
+        super(context, mList);
     }
 
     @Override
@@ -44,7 +38,7 @@ public class TopPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container,int position) {
-        final NewsTopListBean.DataBean newsBean = mList.get(position);
+        final NewsTopListBean.DataBean newsBean = (NewsTopListBean.DataBean) mList.get(position);
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_top_pager, container, false);
         ImageView ivImage = (ImageView) view.findViewById(R.id.iv_top_image);
         TextView tvTitle = (TextView) view.findViewById(R.id.tv_top_title);

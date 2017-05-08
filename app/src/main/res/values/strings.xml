@@ -6,10 +6,18 @@
     <string name="drawer_setting">设置</string>
     <string name="drawer_about">关于</string>
     <string name="news">新闻资讯</string>
+    <string name="joke">开心一刻</string>
     <string name="drawer_open">打开</string>
     <string name="drawer_close">关闭</string>
     <string name="app_intro">A pure reading App for you</string>
     <string name="detail_bottom_like">点赞</string>
     <string name="detail_bottom_commit">评论</string>
     <string name="detail_bottom_share">分享</string>
+    <string name="app_id">5718420e</string>
+    <string name="wechat">微信精选</string>
+    <string name="action_like">收藏</string>
+    <string name="action_copy">分享链接</string>
+    <string name="action_share">action_save</string>
+    <string name="about_author">司向前(si_xiangqian@163.com)</string>
+    <string name="about_project">项目简介:\n本课题主要是设计一款基于Android的新闻资讯应用。重点阐述了利用Android原生技术以及各种第三方类库的开发过程。该应用是一款以展示即时新闻的阅读类应用，为用户提供高效、优质的资讯服务，用户可以通过该应用来阅读时政新闻等新闻，该应用还提供各种福利资源前沿知识，在轻松一刻板块还提供了智能人机交互功能，带来新的视听体验！</string>
 </resources>

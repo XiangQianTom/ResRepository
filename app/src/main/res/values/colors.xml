@@ -17,4 +17,5 @@
 
     <color name="bottom_text">#a9a9a9</color>
     <color name="black_bg">#d0000000</color>
+    <color name="comment_text">#5b5d5c</color>
 </resources>

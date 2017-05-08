@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.github.moduth.blockcanary.BlockCanary;
 import com.github.moduth.blockcanary.BlockCanaryContext;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.orhanobut.logger.Logger;
 import com.si.mynews.app.App;
 import com.si.mynews.app.Constants;
@@ -13,6 +15,10 @@ import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsListener;
+
+import si.mynews.R;
+
+import static com.si.mynews.app.App.mContext;
 
 
 public class InitializeService extends IntentService {
@@ -24,9 +30,9 @@ public class InitializeService extends IntentService {
     }
 
     public static void start() {
-        Intent intent = new Intent(App.mContext, InitializeService.class);
+        Intent intent = new Intent(mContext, InitializeService.class);
         intent.setAction(ACTION_INIT);
-        App.mContext.startService(intent);
+        mContext.startService(intent);
     }
 
     @Override
@@ -55,6 +61,12 @@ public class InitializeService extends IntentService {
 
         //初始化tbs x5 webview
         initX5WebView();
+
+        initIflytek();
+    }
+
+    private void initIflytek() {
+        SpeechUtility.createUtility(mContext, "appid=" + getString(R.string.app_id) + "," + SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
     }
 
     private void initX5WebView() {
@@ -94,6 +106,6 @@ public class InitializeService extends IntentService {
     }
 
     private void initBugly() {
-        CrashReport.initCrashReport(App.mContext, Constants.BUGLY_ID, true);
+        CrashReport.initCrashReport(mContext, Constants.BUGLY_ID, true);
     }
 }

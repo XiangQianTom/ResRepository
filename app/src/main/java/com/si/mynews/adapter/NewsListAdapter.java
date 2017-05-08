@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.si.mynews.model.bean.NewsTopListBean;
 import com.si.mynews.widget.NewsDiffCallback;
 import com.si.mynews.widget.SquareImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,13 +37,12 @@ import si.mynews.R;
 public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<NewsListBean.ListBean> mList;
-    private List<NewsTopListBean.DataBean> mTopList;
+    private List<NewsTopListBean.DataBean> mTopList = new ArrayList<>();
     private LayoutInflater inflater;
     private Context mContext;
     private TopPagerAdapter mAdapter;
     private ViewPager topViewPager;
     private OnItemClickListener onItemClickListener;
-    private static final String TAG = NewsListAdapter.class.getSimpleName();
 
     private int mPageType;
 
@@ -62,7 +61,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        Log.e(TAG, "mPageTypemPageTypemPageTypemPageType\t" + position + "mPageType" + mPageType);
         switch (mPageType) {
             case Constants.TYPE_SCROLL: {
                 if (position == 0) {
@@ -80,7 +78,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e(TAG, "viewTypeviewTypeviewTypeviewTypeviewTypeviewTypeviewTypeviewType\t" + viewType);
         if (viewType == ITEM_TYPE.ITEM_TOP.ordinal()) {
             mAdapter = new TopPagerAdapter(mContext, mTopList);
             return new TopViewHolder(inflater.inflate(R.layout.item_top, parent, false));
@@ -90,9 +87,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.e(TAG, "onBindViewHolderonBindViewHolderonBindViewHolder");
         if (holder instanceof ContentViewHolder) {
-            Log.e(TAG, "onBindView11111111111111111111111111111\t" + mList.size());
             int contentPosition = position;
             if (mPageType == Constants.TYPE_SCROLL) {
                 contentPosition = position - 1;
@@ -110,7 +105,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
         } else {
-            Log.e(TAG, "onBindView22222222222222222222222222222222222\t" + mTopList.size());
             ((TopViewHolder) holder).vpTop.setAdapter(mAdapter);
             topViewPager = ((TopViewHolder) holder).vpTop;
         }
